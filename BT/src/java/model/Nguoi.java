@@ -33,7 +33,7 @@ public class Nguoi {
         this.ngaySinh = ngaySinh;
         this.ghiChu = ghiChu;
     }
-
+    
     public HoTen getHoten() {
         return hoten;
     }

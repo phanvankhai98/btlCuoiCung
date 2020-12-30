@@ -36,6 +36,10 @@ public class DiaChi {
         this.id = id;
     }
 
+    public String getDiaChi() {
+        return soNha+","+phoXom+","+quanHuyen+","+tinhTP;
+    }
+     
     public String getSoNha() {
         return soNha;
     }

@@ -44,7 +44,6 @@
                 Cookie c[] = request.getCookies();
                 if (c.length != 0) {
                     username += c[0].getValue();
-
                 } else {
                 }
             %>

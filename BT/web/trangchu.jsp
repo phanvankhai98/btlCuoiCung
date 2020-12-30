@@ -58,6 +58,6 @@
 </html>
 <script>
     $('#btn-add-contract').on('click', function () {
-       window.location.href="themhopdong.jsp"
+       window.location.href="chonkhachhang.jsp"
     })
 </script>

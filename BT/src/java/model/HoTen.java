@@ -10,6 +10,7 @@ package model;
  * @author pvkha
  */
 public class HoTen {
+
     String ten;
     String dem;
     String ho;
@@ -17,11 +18,14 @@ public class HoTen {
     public HoTen() {
     }
 
-    
     public HoTen(String ten, String dem, String ho) {
         this.ten = ten;
         this.dem = dem;
         this.ho = ho;
+    }
+
+    public String getHoVaTen() {
+        return ho+" "+dem+" "+ten;
     }
 
     public String getTen() {
@@ -47,5 +51,5 @@ public class HoTen {
     public void setHo(String ho) {
         this.ho = ho;
     }
-    
+
 }

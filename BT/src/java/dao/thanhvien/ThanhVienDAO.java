@@ -8,6 +8,8 @@ package dao.thanhvien;
 import dao.DAO;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import model.DiaChi;
 import model.HoTen;
 import model.ThanhVien;
@@ -62,6 +64,39 @@ public class ThanhVienDAO extends DAO {
             kq = false;
         }
         return kq;
+    }
+     public List<ThanhVien> getAllKhachHang() {
+        boolean kq = false;
+        List<ThanhVien> listTV = new ArrayList<>();
+        String sql = "SELECT * FROM db_thue_xe.tblnguoi,db_thue_xe.tbldiachi\n" +
+                    "where tblnguoi.role = 2 " +
+                    "and tblnguoi.iddiachi = db_thue_xe.tbldiachi.id;";
+        try {
+            CallableStatement cs = con.prepareCall(sql);
+            ResultSet rs = cs.executeQuery();
+            if (rs.next()) {
+                ThanhVien tv = new ThanhVien();
+                tv.setId(rs.getInt("id"));
+                HoTen ht = new HoTen();
+                ht.setDem(rs.getString("dem"));
+                ht.setTen(rs.getString("ten"));
+                ht.setHo(rs.getString("ho"));
+                DiaChi diaChi = new DiaChi();
+                diaChi.setSoNha(rs.getString("sonha"));
+                diaChi.setPhoXom(rs.getString("xompho"));
+                diaChi.setQuanHuyen(rs.getString("quanhuyen"));
+                diaChi.setTinhTP(rs.getString("tinhtp"));
+                tv.setHoten(ht);
+                tv.setEmail(rs.getString("email"));
+                tv.setGhiChu(rs.getString("ghichu"));
+                tv.setSdt(rs.getString("sdt"));
+                tv.setDiaChi(diaChi);
+                listTV.add(tv);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listTV;
     }
 
 }
