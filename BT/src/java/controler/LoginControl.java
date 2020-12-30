@@ -11,6 +11,7 @@ import dao.thanhvien.ThanhVienDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +44,8 @@ public class LoginControl extends HttpServlet {
             String user = request.getParameter("username");
             String pass = request.getParameter("password");
             ThanhVien tv = new ThanhVien(user, pass);
+            Cookie cookie = new Cookie("user_profile", tv.getUsername());
+            response.addCookie(cookie);
             boolean kq = tvdao.kiemtraDangnhap(tv);
             if (kq) {
                 session.setAttribute("user", tv);

@@ -13,18 +13,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    </head>
-
+    <jsp:include page="base/header.jsp"></jsp:include>
     <body class="container">
-        <jsp:include page="base/header.jsp"></jsp:include>
             <h2>Danh sách hơp đồng thuê xe</h2>
+            <button id="btn-add-contract">Thêm</button>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -61,6 +53,11 @@
 
 
         </table>
-        <jsp:include page="base/footer.jsp"></jsp:include>
     </body>
+    <jsp:include page="base/footer.jsp"></jsp:include>
 </html>
+<script>
+    $('#btn-add-contract').on('click', function () {
+       window.location.href="themhopdong.jsp"
+    })
+</script>
