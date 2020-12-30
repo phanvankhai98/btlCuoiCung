@@ -49,7 +49,7 @@
                 }
             %>
             <li><a href="#"><span class="glyphicon glyphicon-user">Xin chào <%= username%></span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in" id="logout"></span> Logout</a></li>
         </ul>
     </div>
 </nav>
