@@ -14,15 +14,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    </head>
-
     <body class="container">
         <jsp:include page="base/header.jsp"></jsp:include>
             <h2>Danh sách khách hàng</h2>
@@ -42,30 +33,47 @@
                 </thead>
 
                 <tbody>
-                <%
-                    ServletContext sc = getServletContext();
-                    ThanhVienDAO tvDAO = new ThanhVienDAO();
-                    List<ThanhVien> lisTV = new ArrayList<ThanhVien>();
-                    lisTV = (ArrayList) sc.getAttribute("listHopDong");
-                    if (lisTV == null) {
-                        lisTV = tvDAO.getAllKhachHang();
-                    }
-                    for (ThanhVien tv : lisTV) {
-                %>
-                <tr>
-                    <td><%=tv.getHoten().getHoVaTen()%></td>
-                    <td><%=tv.getSdt()%></td>
-                    <td><%=tv.getDiaChi().getDiaChi()%></td>
-                    <td><%=tv.getEmail()%></td>
-                    <td><%=tv.getGhiChu() %></td>
-                    <td><a class="btn-primary btn">Chọn</a></td>
-                </tr>
-
-                <% }%>
-            </tbody>
+                    <tr id="body-khach-hang"></tr>
+                </tbody>
 
 
         </table>
         <jsp:include page="base/footer.jsp"></jsp:include>
     </body>
 </html>
+<script>
+    getListKhachHang();
+    function getListKhachHang() {
+        var t = $.ajax({
+            url: "http://localhost:8080/BT/api/khach-hang",
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8"
+        });
+        var content = '';
+        t.done(function(result){
+            result.map(item => {
+                content +=`<td>`+item.hoten.ho + item.hoten.dem + item.hoten.ten +`</td>`+
+                `<td>`+ item.sdt +`</td>`+
+                `<td>`+item.diaChi.soNha + item.diaChi.phoXom + `</td>`+
+                `<td>` + item.email + `</td>`+
+                `<td>`+item.ghiChu +`</td>`+
+                `<td id="btn-select" data-id="`+ item.id+`"><a class="btn-primary btn">Chọn</a></td>`;
+            })
+            $('#body-khach-hang').append(content);
+        });
+    }
+    // Tạo 1 sự kiện onclick
+    // Gửi request POST qua type submit
+    //Sevlet xử lý, tyrar lại dữ liệu GSO
+    //
+    $(document).ready(function() {
+        $('#btn-select').on('click', function() {
+            var idSelect = $(this).data('id');
+            localStorage.setItem("khachHangSelected", idSelect);
+            var url = "chonXe.jsp?id="+idSelect;
+            console.log('url: ', url);
+            window.location.href= url;
+        })
+    });
+</script>
