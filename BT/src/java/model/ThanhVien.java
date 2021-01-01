@@ -15,7 +15,7 @@ public class ThanhVien extends Nguoi{
     String username;
     String password;
 
-    public ThanhVien(String username, String password, HoTen hoten, int id, DiaChi diaChi, String sdt, String email, Date ngaySinh, String ghiChu) {
+    public ThanhVien(String username, String password, HoTen hoten, int id, DiaChi diaChi, String sdt, String email, String ngaySinh, String ghiChu) {
         super(hoten, id, diaChi, sdt, email, ngaySinh, ghiChu);
         this.username = username;
         this.password = password;

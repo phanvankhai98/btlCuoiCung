@@ -17,9 +17,8 @@
     <body class="container">
         <jsp:include page="base/header.jsp"></jsp:include>
             <h2>Danh sách khách hàng</h2>
-            <form action="TrangChuController" method="post">
-                <input class="btn btn-primary" type="submit" value="Thêm mới" name="btn">
-            </form>
+
+            <button id="btn-them-kh" class="btn-primary btn">Chọn</button>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -58,7 +57,7 @@
                 `<td>`+item.diaChi.soNha + item.diaChi.phoXom + `</td>`+
                 `<td>` + item.email + `</td>`+
                 `<td>`+item.ghiChu +`</td>`+
-                `<td id="btn-select" data-id="`+ item.id+`"><a class="btn-primary btn">Chọn</a></td>`;
+                `<td  ><a id="btn-select" data-id="`+ item.id+`" class="btn-primary btn">Chọn</a></td>`;
             })
             $('#body-khach-hang').append(content);
         });
@@ -70,10 +69,14 @@
     $(document).ready(function() {
         $('#btn-select').on('click', function() {
             var idSelect = $(this).data('id');
-            localStorage.setItem("khachHangSelected", idSelect);
-            var url = "chonXe.jsp?id="+idSelect;
-            console.log('url: ', url);
+//            localStorage.setItem("khachHangSelected", idSelect);
+            var url = "chonxe.jsp?id="+idSelect;
             window.location.href= url;
-        })
+        });
+        $('#btn-them-kh').on('click',function (){
+            console.log('oke');
+            var url = "themkhachhang.jsp";
+            window.location.href= url;
+        });
     });
 </script>

@@ -39,20 +39,18 @@ public class LoginControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         tvdao = new ThanhVienDAO();
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
-            String user = request.getParameter("username");
-            String pass = request.getParameter("password");
-            ThanhVien tv = new ThanhVien(user, pass);
-            Cookie cookie = new Cookie("user_profile", tv.getUsername());
-            response.addCookie(cookie);
-            boolean kq = tvdao.kiemtraDangnhap(tv);
-            if (kq) {
-                session.setAttribute("user", tv);
-                response.sendRedirect("trangchu.jsp");
-            } else {
-                response.sendRedirect("dangnhap.jsp");
-            }
+        HttpSession session = request.getSession();
+        String user = request.getParameter("username");
+        String pass = request.getParameter("password");
+        ThanhVien tv = new ThanhVien(user, pass);
+        Cookie cookie = new Cookie("user_profile", tv.getUsername());
+        response.addCookie(cookie);
+        boolean kq = tvdao.kiemtraDangnhap(tv);
+        if (kq) {
+            session.setAttribute("user", tv);
+            response.sendRedirect("trangchu.jsp");
+        } else {
+            response.sendRedirect("dangnhap.jsp");
         }
     }
 

@@ -17,14 +17,24 @@ public class Nguoi {
     DiaChi diaChi;
     String sdt;
     String email;
-    Date ngaySinh;
+    String ngaySinh;
     String ghiChu;
 
+    
     public Nguoi() {
     }
 
+    public Nguoi(HoTen hoten, DiaChi diaChi, String sdt, String email, String ngaySinh, String ghiChu) {
+        this.hoten = hoten;
+        this.diaChi = diaChi;
+        this.sdt = sdt;
+        this.email = email;
+        this.ngaySinh = ngaySinh;
+        this.ghiChu = ghiChu;
+    }
+
     
-    public Nguoi(HoTen hoten, int id, DiaChi diaChi, String sdt, String email, Date ngaySinh, String ghiChu) {
+    public Nguoi(HoTen hoten, int id, DiaChi diaChi, String sdt, String email, String ngaySinh, String ghiChu) {
         this.hoten = hoten;
         this.id = id;
         this.diaChi = diaChi;
@@ -33,6 +43,7 @@ public class Nguoi {
         this.ngaySinh = ngaySinh;
         this.ghiChu = ghiChu;
     }
+
     
     public HoTen getHoten() {
         return hoten;
@@ -74,11 +85,11 @@ public class Nguoi {
         this.email = email;
     }
 
-    public Date getNgaySinh() {
+    public String getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(Date ngaySinh) {
+    public void setNgaySinh(String ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 
@@ -89,5 +100,7 @@ public class Nguoi {
     public void setGhiChu(String ghiChu) {
         this.ghiChu = ghiChu;
     }
+
     
+  
 }
