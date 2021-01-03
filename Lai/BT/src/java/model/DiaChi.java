@@ -17,6 +17,14 @@ public class DiaChi {
     String quanHuyen;
     String tinhTP;
 
+    public DiaChi(String soNha, String phoXom, String quanHuyen, String tinhTP) {
+        this.soNha = soNha;
+        this.phoXom = phoXom;
+        this.quanHuyen = quanHuyen;
+        this.tinhTP = tinhTP;
+    }
+
+    
     public DiaChi(int id, String soNha, String phoXom, String quanHuyen, String tinhTP) {
         this.id = id;
         this.soNha = soNha;

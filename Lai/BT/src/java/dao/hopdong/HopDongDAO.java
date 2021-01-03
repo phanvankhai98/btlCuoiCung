@@ -21,10 +21,10 @@ public class HopDongDAO extends DAO {
     public HopDongDAO() {
         super();
     }
-    
-    public List<HopDong> getAll(){
+
+    public List<HopDong> getAll() {
         List<HopDong> list = new ArrayList<>();
-        
+
 //        SELECT * FROM db_thue_xe.tblhopdong;
         boolean kq = false;
 
@@ -32,21 +32,47 @@ public class HopDongDAO extends DAO {
         try {
             CallableStatement cs = con.prepareCall(sql);
             ResultSet rs = cs.executeQuery();
-            if (rs.next()){
+            while (rs.next()) {
                 HopDong hd = new HopDong();
                 hd.setId(rs.getInt("id"));
                 hd.setTen(rs.getString("ten"));
                 hd.setMota(rs.getString("mota"));
                 hd.setTienCoc(rs.getFloat("tiencoc"));
-                hd.setNgayThue(rs.getDate("ngaythue").toString());
-                hd.setNgayTra(rs.getDate("ngaytra").toString());
+                hd.setNgayThue(rs.getString("ngaythue"));
+                hd.setNgayTra(rs.getString("ngaytra"));
                 hd.setIdKhachHang(rs.getInt("idkhachhang"));
                 list.add(hd);
             }
         } catch (Exception e) {
         }
-        return  list;
-        
+        return list;
+
     }
-    
+
+    public HopDong getHopDongByID(String id) {
+        HopDong hd = null;
+
+//        SELECT * FROM db_thue_xe.tblhopdong;
+        boolean kq = false;
+
+        String sql = "SELECT * FROM db_thue_xe.tblhopdong where id = ?;";
+        try {
+            CallableStatement cs = con.prepareCall(sql);
+            cs.setString(1, id);
+            ResultSet rs = cs.executeQuery();
+            if (rs.next()) {
+                hd = new HopDong();
+                hd.setId(rs.getInt("id"));
+                hd.setTen(rs.getString("ten"));
+                hd.setMota(rs.getString("mota"));
+                hd.setTienCoc(rs.getFloat("tiencoc"));
+                hd.setNgayThue(rs.getString("ngaythue"));
+                hd.setNgayTra(rs.getString("ngaytra"));
+                hd.setIdKhachHang(rs.getInt("idkhachhang"));
+            }
+        } catch (Exception e) {
+        }
+        return hd;
+
+    }
 }

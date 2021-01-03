@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pvkha/Documents/NetBeansProjects/BT/web/css/header.css</file>
-            <file>file:/C:/Users/pvkha/Documents/NetBeansProjects/BT/web/themmoikhachhang.jsp</file>
-            <file>file:/C:/Users/pvkha/Documents/NetBeansProjects/BT/web/css/css.css</file>
-            <file>file:/C:/Users/pvkha/Documents/NetBeansProjects/BT/web/css/login.css</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/dao/xe/XeDAO.java</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/controler/ChonXeController.java</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/web/chonxe.jsp</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/dao/khachhang/KhachHangDAO.java</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/controler/ChonKhachHangController.java</file>
         </group>
     </open-files>
 </project-private>

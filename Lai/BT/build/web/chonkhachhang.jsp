@@ -4,6 +4,8 @@
     Author     : pvkha
 --%>
 
+<%@page import="dao.khachhang.KhachHangDAO"%>
+<%@page import="model.Nguoi"%>
 <%@page import="dao.thanhvien.ThanhVienDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.hopdong.HopDongDAO"%>
@@ -26,9 +28,26 @@
     <body class="container">
         <jsp:include page="base/header.jsp"></jsp:include>
             <h2>Danh sách khách hàng</h2>
-            <form action="TrangChuController" method="post">
-                <input class="btn btn-primary" type="submit" value="Thêm mới" name="btn">
+            <form action="ChonKhachHangController" method="post">
+                <table >
+                    <tr>
+                        <td>
+                            <input class="form-control" type="text" placeholder="Search" aria-label="Search" 
+                                   value="" name="search">
+                        </td>
+                        <td>
+                            <input  type="hidden" value="search" name="btn">
+                            <input class="btn btn-primary " type="submit" value="Tìm" >
+                        </td>
+                    </tr>
+                </table>
             </form>
+            <form action="ChonKhachHangController" method="post">
+                 <input  type="hidden" value="add" name="btn">
+                <input class="btn-them-moi-kh btn btn-primary " type="submit" value="Thêm mới khách hàng" >
+            </form>
+
+
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -40,28 +59,27 @@
                         <th>Chọn</th>
                     </tr>
                 </thead>
-
                 <tbody>
                 <%
                     ServletContext sc = getServletContext();
-                    ThanhVienDAO tvDAO = new ThanhVienDAO();
-                    List<ThanhVien> lisTV = new ArrayList<ThanhVien>();
-                    lisTV = (ArrayList) sc.getAttribute("listHopDong");
-                    if (lisTV == null) {
-                        lisTV = tvDAO.getAllKhachHang();
+                    KhachHangDAO tvDAO = new KhachHangDAO();
+                    List<Nguoi> listTV;
+                    listTV = (List) sc.getAttribute("listKhachHang");
+                    if (listTV == null) {
+                        listTV = tvDAO.getAllKhachHang();
                     }
-                    for (ThanhVien tv : lisTV) {
+                    for (Nguoi nguoi : listTV) {
                 %>
                 <tr>
-                    <td><%=tv.getHoten().getHoVaTen()%></td>
-                    <td><%=tv.getSdt()%></td>
-                    <td><%=tv.getDiaChi().getDiaChi()%></td>
-                    <td><%=tv.getEmail()%></td>
-                    <td><%=tv.getGhiChu()%></td>
+                    <td><%=nguoi.getHoten().getHoVaTen()%></td>
+                    <td><%=nguoi.getSdt()%></td>
+                    <td><%=nguoi.getDiaChi().getDiaChi()%></td>
+                    <td><%=nguoi.getEmail()%></td>
+                    <td><%=nguoi.getGhiChu()%></td>
                     <td>
-                        <form action="EditProductServlet" method="post">
-                            <input type="hidden" value="<%=tv.getId()%>" name="id">
-                            <input class="btn-primary btn" type="submit" name ="button" value="Chọn" >
+                        <form action="ChonKhachHangController" method="get">
+                            <input type="hidden" value="<%=nguoi.getId()%>" name="btn">
+                            <input class="btn-primary btn" type="submit" value="Chọn" >
                         </form>
                     </td>
 
