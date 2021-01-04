@@ -25,6 +25,8 @@
             Date cur = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             String strDate = dateFormat.format(cur);
+            session = request.getSession();
+            List<String> listIDXe = (List<String>) session.getAttribute("listIDXe");
         %>
         <jsp:include page="base/header.jsp"></jsp:include>
             <form action="ChonXeController" method="post">
@@ -32,18 +34,14 @@
                     <tr>
                         <td >
                             <h4>Ngày thuê:</h4>
-                            <!--                            <input class="form-control" type="text" placeholder="Search" aria-label="Search" 
-                                                               value="" name="search">-->
                             <input type="date" name="begin" 
-                                   placeholder="dd-mm-yyyy" value="<%=strDate%>"
+                                   placeholder="dd-mm-yyyy" value=""
                                    min="1997-01-01" max="2030-12-31"> 
                         </td>
                         <td>
                             <h4>Ngày trả:</h4>
-                            <!--                            <input class="form-control" type="text" placeholder="Search" aria-label="Search" 
-                                                               value="" name="search">-->
                             <input type="date" name="end" 
-                                   placeholder="dd-mm-yyyy" value="<%=strDate%>"
+                                   placeholder="dd-mm-yyyy" value=""
                                    min="1997-01-01" max="2030-12-31"> 
                         </td>
                     </tr>
@@ -51,6 +49,12 @@
                         <td >
                             <input  type="hidden" value="search" name="btn">
                             <input class="btn btn-primary " type="submit" value="Tìm xe" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <input  type="hidden" value="continue" name="btn">
+                            <input class="btn btn-success " type="submit" value="Tiếp tục" >
                         </td>
                     </tr>
                 </table>
@@ -82,12 +86,21 @@
             <td><%=xe.getDongXe()%></td>
             <td><%=xe.getHangXe()%></td>
             <td><%=xe.getMoTa()%></td>
+            <% if (listIDXe!=null && listIDXe.contains(xe.getId() + "")) {%>
             <td>
-                <form action="ChonKhachHangController" method="get">
-                    <input type="hidden" value="<%=xe.getId()%>" name="btn">
-                    <input class="btn-primary btn" type="submit" value="Chọn" >
+                <form action="ChonXeController" method="post">
+                    <input type="hidden" value="<%=xe.getId()%>" name="btnxe">
+                    <input class="btn-danger btn" type="submit" value="Xoá " >
                 </form>
             </td>
+            <%} else {%>
+            <td>
+                <form action="ChonXeController" method="post">
+                    <input type="hidden" value="<%=xe.getId()%>" name="btnxe">
+                    <input class="btn-primary btn " type="submit" value="Chọn" >
+                </form>
+            </td>
+            <%}%>
             <%}%>
         </table>
         <%}%>

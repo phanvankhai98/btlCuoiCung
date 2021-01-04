@@ -75,7 +75,6 @@ public class ChonKhachHangController extends HttpServlet {
             ServletContext sc = getServletContext();
             sc.setAttribute("listKhachHang", list);
         }
-
         RequestDispatcher dispatcher
                 = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);

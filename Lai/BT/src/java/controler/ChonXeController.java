@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,6 +24,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Xe;
 
 /**
@@ -37,9 +39,6 @@ public class ChonXeController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -73,7 +72,8 @@ public class ChonXeController extends HttpServlet {
         String url = "/chonxe.jsp";
 
         String pass = request.getParameter("btn");
-        if (pass.equals("search")) {
+        String idXe = request.getParameter("btnxe");
+        if (pass != null && pass.equals("search")) {
             try {
                 String ngayThue = request.getParameter("begin");
                 String ngayTra = request.getParameter("end");
@@ -91,6 +91,21 @@ public class ChonXeController extends HttpServlet {
             } catch (ParseException ex) {
                 Logger.getLogger(ChonXeController.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        if (idXe != null) {
+            HttpSession session = request.getSession();
+            List<String> listXe = (List<String>) session.getAttribute("listIDXe");
+            if (listXe == null) {
+                listXe = new ArrayList<String>();
+                listXe.add(idXe);
+            } else {
+                if (listXe.contains(idXe)){
+                    listXe.remove(idXe);
+                }else{
+                    listXe.add(idXe);
+                }
+            }
+            session.setAttribute("listIDXe", listXe);
         }
         RequestDispatcher dispatcher
                 = getServletContext().getRequestDispatcher(url);
