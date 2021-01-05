@@ -73,23 +73,29 @@ public class ChonXeController extends HttpServlet {
 
         String pass = request.getParameter("btn");
         String idXe = request.getParameter("btnxe");
-        if (pass != null && pass.equals("search")) {
-            try {
-                String ngayThue = request.getParameter("begin");
-                String ngayTra = request.getParameter("end");
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                if (!ngayThue.isEmpty() || !ngayTra.isEmpty()) {
-                    Date dateThue = format.parse(ngayThue);
-                    Date dateTra = format.parse(ngayTra);
-                    int a = (int) (dateThue.getTime() / 10000);
-                    int b = (int) (dateTra.getTime() / 10000);
-
-                    List<Xe> list = xeDAO.timXeTheoNgay(a, b);
-                    ServletContext sc = getServletContext();
-                    sc.setAttribute("listXe", list);
+        if (pass != null) {
+            if (pass.equals("search")) {
+                try {
+                    String ngayThue = request.getParameter("begin");
+                    String ngayTra = request.getParameter("end");
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    if (!ngayThue.isEmpty() || !ngayTra.isEmpty()) {
+                        Date dateThue = format.parse(ngayThue);
+                        Date dateTra = format.parse(ngayTra);
+                        int a = (int) (dateThue.getTime() / 10000);
+                        int b = (int) (dateTra.getTime() / 10000);
+                        List<Xe> list = xeDAO.timXeTheoNgay(a, b);
+                        ServletContext sc = getServletContext();
+                        HttpSession session = request.getSession();
+                        session.setAttribute("ngayThue", a+"0000");
+                        session.setAttribute("ngayTra", b+"0000");
+                        sc.setAttribute("listXe", list);
+                    }
+                } catch (ParseException ex) {
+                    Logger.getLogger(ChonXeController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (ParseException ex) {
-                Logger.getLogger(ChonXeController.class.getName()).log(Level.SEVERE, null, ex);
+            } else if (pass.equals("continue")) {
+                url = "/hopdong.jsp";
             }
         }
         if (idXe != null) {
@@ -99,9 +105,9 @@ public class ChonXeController extends HttpServlet {
                 listXe = new ArrayList<String>();
                 listXe.add(idXe);
             } else {
-                if (listXe.contains(idXe)){
+                if (listXe.contains(idXe)) {
                     listXe.remove(idXe);
-                }else{
+                } else {
                     listXe.add(idXe);
                 }
             }

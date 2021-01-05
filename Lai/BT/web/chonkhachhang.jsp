@@ -77,7 +77,7 @@
                     <td><%=nguoi.getEmail()%></td>
                     <td><%=nguoi.getGhiChu()%></td>
                     <td>
-                        <form action="ChonKhachHangController" method="get">
+                        <form action="ChonKhachHangController" method="post">
                             <input type="hidden" value="<%=nguoi.getId()%>" name="btn">
                             <input class="btn-primary btn" type="submit" value="Chọn" >
                         </form>

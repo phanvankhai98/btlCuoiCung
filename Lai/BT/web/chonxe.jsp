@@ -29,8 +29,8 @@
             List<String> listIDXe = (List<String>) session.getAttribute("listIDXe");
         %>
         <jsp:include page="base/header.jsp"></jsp:include>
-            <form action="ChonXeController" method="post">
-                <table class="search-xe" >
+            <table class="search-xe" >
+                <form action="ChonXeController" method="post">
                     <tr>
                         <td >
                             <h4>Ngày thuê:</h4>
@@ -51,23 +51,22 @@
                             <input class="btn btn-primary " type="submit" value="Tìm xe" >
                         </td>
                     </tr>
+                </form>
+                <form action="ChonXeController" method="post">
                     <tr>
                         <td >
                             <input  type="hidden" value="continue" name="btn">
                             <input class="btn btn-success " type="submit" value="Tiếp tục" >
                         </td>
                     </tr>
-                </table>
-            </form>
+                </form>
+            </table>
         <%
             ServletContext sc = getServletContext();
             XeDAO xeDAO = new XeDAO();
             List<Xe> listXe;
             listXe = (List) sc.getAttribute("listXe");
-            if (listXe == null) {
-                listXe = xeDAO.getAll();
-            }
-            if (!listXe.isEmpty()) {
+            if (listXe!=null &&!listXe.isEmpty()) {
         %>
         <table class="table table-bordered">
             <thead>
@@ -86,7 +85,7 @@
             <td><%=xe.getDongXe()%></td>
             <td><%=xe.getHangXe()%></td>
             <td><%=xe.getMoTa()%></td>
-            <% if (listIDXe!=null && listIDXe.contains(xe.getId() + "")) {%>
+            <% if (listIDXe != null && listIDXe.contains(xe.getId() + "")) {%>
             <td>
                 <form action="ChonXeController" method="post">
                     <input type="hidden" value="<%=xe.getId()%>" name="btnxe">

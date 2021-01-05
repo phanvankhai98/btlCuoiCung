@@ -84,6 +84,38 @@ public class KhachHangDAO extends DAO {
         return list;
     }
 
+    public Nguoi getKhachHangByID(String id) {
+        Nguoi data = null ;
+//SELECT * FROM db_thue_xe.tblnguoi where ten like '%';
+        String sql = "SELECT * FROM db_thue_xe.tblnguoi,db_thue_xe.tbldiachi"
+                + " where role = 2 and tblnguoi.id = ? and tbldiachi.id = tblnguoi.iddiachi;";
+        try {
+            CallableStatement cs = con.prepareCall(sql);
+            cs.setInt(1, Integer.parseInt(id));
+            ResultSet rs = cs.executeQuery();
+            if (rs.next()) {
+                Nguoi nguoi = new Nguoi();
+                nguoi.setId(rs.getInt("id"));
+                HoTen ht = new HoTen(rs.getString("ten"), rs.getString("dem"), rs.getString("ho"));
+                nguoi.setHoten(ht);
+                DiaChi diaChi = new DiaChi();
+                diaChi.setSoNha(rs.getString("sonha"));
+                diaChi.setPhoXom(rs.getString("xompho"));
+                diaChi.setQuanHuyen(rs.getString("quanhuyen"));
+                diaChi.setTinhTP(rs.getString("tinhtp"));
+                nguoi.setDiaChi(diaChi);
+                nguoi.setSdt(rs.getString("sdt"));
+                nguoi.setEmail(rs.getString("email"));
+                nguoi.setGhiChu(rs.getString("ghichu"));
+                nguoi.setNgaySinh(rs.getString("ngaysinh"));
+                data = nguoi;
+            }
+        } catch (Exception e) {
+        }
+
+        return data;
+    }
+
     public boolean themKhachHang(Nguoi nguoi) {
         boolean kq = false;
         String sql = "INSERT INTO `db_thue_xe`.`tblnguoi` (`ho`, `ten`, `dem`, `ngaysinh`, `email`, `sdt`, `ghichu`, `role`, `iddiachi`) \n"

@@ -52,19 +52,22 @@ public class XeDAO extends DAO {
         return list;
     }
 
-    public List<Xe> getXeBuyID(String ID) {
-        List<Xe> list = new ArrayList<>();
-        String sql = "SELECT * FROM db_thue_xe.tblxe;";
+    public List<Xe> getXeBuyID(String id) {
+         List<Xe> list = new ArrayList<>();
+        String sql = "SELECT tblxe.id,tblxe.ten,tblxe.mota,tbldongxe.ten as dongxe, tblhangxe.ten as hangxe \n"
+                + "FROM db_thue_xe.tblxe,db_thue_xe.tbldongxe,db_thue_xe.tblhangxe \n"
+                + "where tblxe.id = ? and tbldongxe.id = tblxe.iddongxe and tblhangxe.id = tbldongxe.idhangxe;";
         try {
             CallableStatement cs = con.prepareCall(sql);
+            cs.setInt(1, Integer.parseInt(id));
             ResultSet rs = cs.executeQuery();
             if (rs.next()) {
                 Xe xe = new Xe();
                 xe.setId(rs.getInt("id"));
                 xe.setTenXe(rs.getString("ten"));
-                xe.setMoTa(rs.getString("ten"));
-                xe.setDongXe(rs.getString("tendong"));
-                xe.setHangXe(rs.getString("tenhang"));
+                xe.setMoTa(rs.getString("mota"));
+                xe.setDongXe(rs.getString("dongxe"));
+                xe.setHangXe(rs.getString("hangxe"));
                 list.add(xe);
             }
         } catch (Exception e) {
