@@ -13,7 +13,7 @@ public class HopDong {
     int id;
     String ten;
     String mota;
-    float tienCoc;
+    double tienCoc;
     String loaiTien;
     String ngayThue;
     String ngayTra;
@@ -23,7 +23,7 @@ public class HopDong {
     }
 
     
-    public HopDong(int id, String ten, String mota, float tienCoc, String loaiTien, String ngayThue, String ngayTra, int idKhachHang) {
+    public HopDong(int id, String ten, String mota, double tienCoc, String loaiTien, String ngayThue, String ngayTra, int idKhachHang) {
         this.id = id;
         this.ten = ten;
         this.mota = mota;
@@ -58,7 +58,7 @@ public class HopDong {
         this.mota = mota;
     }
 
-    public float getTienCoc() {
+    public double getTienCoc() {
         return tienCoc;
     }
 

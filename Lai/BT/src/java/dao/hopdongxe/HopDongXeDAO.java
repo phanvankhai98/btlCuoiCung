@@ -43,7 +43,8 @@ public class HopDongXeDAO extends DAO {
         }
         return list;
     }
-        public List<HopDongXe> getHopDongXeByIDHopDong(int idHopDong) {
+
+    public List<HopDongXe> getHopDongXeByIDHopDong(int idHopDong) {
         List<HopDongXe> list = new ArrayList<>();
 
 //        SELECT * FROM db_thue_xe.tblhopdong;
@@ -64,5 +65,23 @@ public class HopDongXeDAO extends DAO {
         } catch (Exception e) {
         }
         return list;
+    }
+
+    public boolean addHopDongXe(HopDongXe hdx) {
+        List<HopDongXe> list = new ArrayList<>();
+
+//        SELECT * FROM db_thue_xe.tblhopdong;
+        boolean kq = false;
+        String sql = "INSERT INTO `db_thue_xe`.`tblhopdongxe` (`idhopdong`, `idxe`) VALUES (?, ?);";
+        try {
+            CallableStatement cs = con.prepareCall(sql);
+            cs.setInt(1, hdx.getIdHopDong());
+            cs.setInt(1, hdx.getIdXe());
+            ResultSet rs = cs.executeQuery();
+            kq = cs.executeUpdate() == 1;
+
+        } catch (Exception e) {
+        }
+        return kq;
     }
 }

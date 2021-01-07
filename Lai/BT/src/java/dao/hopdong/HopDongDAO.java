@@ -6,11 +6,15 @@
 package dao.hopdong;
 
 import dao.DAO;
+import dao.hopdongtaisan.HopDongTaiSanDAO;
+import dao.hopdongxe.HopDongXeDAO;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import model.HopDong;
+import model.HopDongTaiSan;
+import model.HopDongXe;
 
 /**
  *
@@ -73,6 +77,47 @@ public class HopDongDAO extends DAO {
         } catch (Exception e) {
         }
         return hd;
+
+    }
+
+    public boolean addHopDong(HopDong hopDong, List<String> listIDXe, List<String> listTaiSan) {
+        boolean kq = false;
+
+        String sql = "INSERT INTO `db_thue_xe`.`tblhopdong` (`ten`, `mota`, `tiencoc`, `loaitien`, `ngaythue`, `ngaytra`, `idkhachhang`)"
+                + " VALUES ('thuê xe', 'thuê xe', ?, ?, '?, ?, ?);";
+        try {
+            CallableStatement cs = con.prepareCall(sql);
+            cs.setDouble(1, hopDong.getTienCoc());
+            cs.setString(2, hopDong.getLoaiTien());
+            cs.setString(3, hopDong.getNgayThue());
+            cs.setString(4, hopDong.getNgayTra());
+            cs.setInt(5, hopDong.getIdKhachHang());
+            if (cs.executeUpdate() == 0) {
+                return false;
+            };
+
+            ResultSet rs = cs.getGeneratedKeys();
+            if (rs.next()) {
+                HopDongXeDAO hdxDAO = new HopDongXeDAO();
+                HopDongTaiSanDAO hdtsDAO = new HopDongTaiSanDAO();
+                int id = rs.getInt(1);
+                for (String idXe : listIDXe) {
+                    HopDongXe hdx = new HopDongXe(1, Integer.parseInt(idXe), id);
+                    if (hdxDAO.addHopDongXe(hdx)) {
+                        return false;
+                    }
+                }
+                for (String idTS : listTaiSan) {
+                    HopDongTaiSan hdts = new HopDongTaiSan(1, Integer.parseInt(idTS), id);
+                    if (hdtsDAO.addHopDongTaiSan(hdts)) {
+                        return false;
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+        }
+        return kq;
 
     }
 }

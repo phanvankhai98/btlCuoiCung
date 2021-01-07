@@ -3,11 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/PTIT/BTLCC/Lai/BT/web/themmoikhachhang.jsp</file>
-            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/controler/ChonXeController.java</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/dao/hopdong/HopDongDAO.java</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/model/HopDongXe.java</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/dao/hopdongtaisan/HopDongTaiSanDAO.java</file>
             <file>file:/G:/PTIT/BTLCC/Lai/BT/web/chonxe.jsp</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/dao/khachhang/KhachHangDAO.java</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/dao/hopdongxe/HopDongXeDAO.java</file>
             <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/controler/ChonKhachHangController.java</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/model/HopDongTaiSan.java</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/web/themmoikhachhang.jsp</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/dao/xe/XeDAO.java</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/controler/HopDongController.java</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/controler/ChonXeController.java</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/web/dangnhap.jsp</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/model/Xe.java</file>
             <file>file:/G:/PTIT/BTLCC/Lai/BT/web/hopdong.jsp</file>
+            <file>file:/G:/PTIT/BTLCC/Lai/BT/src/java/model/HopDong.java</file>
         </group>
     </open-files>
 </project-private>

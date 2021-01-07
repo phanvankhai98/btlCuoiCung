@@ -5,13 +5,19 @@
  */
 package controler;
 
+import dao.hopdong.HopDongDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.HopDong;
 
 /**
  *
@@ -62,6 +68,51 @@ public class HopDongController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        String url = "/hopdong.jsp";
+        String btn = request.getParameter("btn");
+        HttpSession session = request.getSession();
+
+        if (btn != null) {
+            if (btn.equals("savemoney")) {
+                String tienCoc = request.getParameter("tiencoc");
+                String loaiTien = request.getParameter("loaitien");
+                session.setAttribute("tiencoc", tienCoc);
+                session.setAttribute("loaitien", loaiTien);
+
+            } else if (btn.equals("addTaiSan")) {
+                String taiSan = request.getParameter("dropTaiSan");
+
+                List<String> listTaiSan;
+                listTaiSan = (List<String>) session.getAttribute("taisan");
+                if (listTaiSan == null) {
+                    listTaiSan = new ArrayList<>();
+                }
+                if (taiSan != null && !listTaiSan.contains(taiSan)) {
+                    listTaiSan.add(taiSan);
+                }
+                session.setAttribute("taisan", listTaiSan);
+            } else if (btn.equals("create")) {
+                List<String> listTaiSan;
+                List<String> listXe;
+                listTaiSan = (List<String>) session.getAttribute("taisan");
+                listXe = (List<String>) session.getAttribute("listIDXe");
+                String tienCoc =(String) session.getAttribute("tiencoc");
+                String loaiTien = (String)session.getAttribute("loaitien");
+                String idKhachHang = (String) session.getAttribute("idKhachHang");
+                String ngayThue = (String) session.getAttribute("ngayThue");
+                String ngayTra = (String) session.getAttribute("ngayTra");
+                HopDongDAO hdDAO = new HopDongDAO();
+                HopDong hd = new HopDong(1, "Thue Xe", "Thue Xe", Double.parseDouble(tienCoc.replace(".0", "")), loaiTien,
+                        ngayThue, ngayTra, Integer.parseInt(idKhachHang));
+                boolean kq = hdDAO.addHopDong(hd, listXe, listTaiSan);
+                if (kq) {
+                    url = "/trangchu.jsp";
+                }
+            }
+        }
+        RequestDispatcher dispatcher
+                = getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);
     }
 
     /**

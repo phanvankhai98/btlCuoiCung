@@ -74,6 +74,8 @@
                     <th>Tên xe</th>
                     <th>Dòng xe</th>
                     <th>Hãng xe</th>
+                    <th>Biển số</th>
+                    <th>Đơn giá/Ngày</th>
                     <th>Mô tả</th>
                     <th>Chọn</th>
                 </tr>
@@ -84,6 +86,8 @@
             <td><%=xe.getTenXe()%></td>
             <td><%=xe.getDongXe()%></td>
             <td><%=xe.getHangXe()%></td>
+            <td><%=xe.getBienSO()%></td>
+            <td><%=xe.getDonGia()%>vnđ</td>
             <td><%=xe.getMoTa()%></td>
             <% if (listIDXe != null && listIDXe.contains(xe.getId() + "")) {%>
             <td>

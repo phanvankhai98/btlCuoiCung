@@ -4,6 +4,9 @@
     Author     : pvkha
 --%>
 
+<%@page import="constant.Constants"%>
+<%@page import="dao.taisan.TaiSanDAO"%>
+<%@page import="model.TaiSan"%>
 <%@page import="dao.xe.XeDAO"%>
 <%@page import="model.Xe"%>
 <%@page import="java.util.ArrayList"%>
@@ -23,16 +26,28 @@
         <%
             List<String> listIDXe = (List<String>) session.getAttribute("listIDXe");
             List<Xe> listXe = null;
+            List<TaiSan> listTaiSan = null;
+            List<String> listTaiSanDaChon = (List<String>) session.getAttribute("taisan");
             String idKhachHang = (String) session.getAttribute("idKhachHang");
             String ngayThue = (String) session.getAttribute("ngayThue");
             String ngayTra = (String) session.getAttribute("ngayTra");
+            String tienCoc = (String) session.getAttribute("tiencoc");
+            String loaiTien = (String) session.getAttribute("loaitien");
+            if (tienCoc == null) {
+                tienCoc = "";
+            }
+            if (loaiTien == null) {
+                loaiTien = "vnd";
+            }
             KhachHangDAO khDAO = new KhachHangDAO();
             Nguoi kh = khDAO.getKhachHangByID(idKhachHang);
             XeDAO xeDAO = new XeDAO();
+            TaiSanDAO tsDAO = new TaiSanDAO();
+            listTaiSan = tsDAO.getAllTaiSan();
 
             for (String i : listIDXe) {
                 if (listXe == null) {
-                    listXe=xeDAO.getXeBuyID(i);
+                    listXe = xeDAO.getXeBuyID(i);
                 } else {
                     listXe.addAll(xeDAO.getXeBuyID(i));
                 }
@@ -52,7 +67,7 @@
                     </tr>
                     <tr>
                         <td>Ngày sinh:</td>
-                        <td><%=kh.getNgaySinh()%></td>
+                        <td><%=Constants.convertTime(kh.getNgaySinh() + "0000")%></td>
                     </tr>
 
                     <tr>
@@ -63,33 +78,55 @@
                     <tr>
                         <td>Xe thuê: </td>
                         <td>
-                            <%for(Xe xe: listXe){%> 
-                            <%=xe.getTenXe()+","+xe.getDongXe()+","+xe.getHangXe()%><br><br>
+                            <%for (Xe xe : listXe) {%> 
+                            <%=xe.getTenXe() + "," + xe.getDongXe() + "," + xe.getHangXe()%><br><br>
                             <%}%> 
                         </td>
                     </tr>
                     <tr>
                         <td>Ngày thuê - Ngày trả: </td>
-                        <td><%=ngayThue+"-"+ngayTra %></td>
+                        <td><%="[" + Constants.convertTime(ngayThue) + "] đến [" + Constants.convertTime(ngayTra) + "]"%></td>
                     </tr>
                 <td>Tiền cọc:</td>
-                <td><input type="input" name="tiencoc" value=""><br><br><input type="input" name="loaitien" value=""></td>
+                <form action="HopDongController" method="post">
+                    <td>Nhập số tiền: <input type="input" name="tiencoc" value=<%=tienCoc%>><br>
+                        <br>Loại tiền: <input type="input" name="loaitien" value=<%=loaiTien%>><br>
+                        <br> <input type="submit" value="Lưu tiền cọc">
+                        <input type="hidden" value="savemoney" name="btn">
+                    </td>
+                </form>
                 </tr>
                 </tr>
                 <td>Tài sản đảm bảo:</td>
-                <td>123-4567-890(Landline)<br><br>
-                    <select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-                        <option value="-12.0">(GMT -12:00) Eniwetok, Kwajalein</option>
-                        <option value="-11.0">(GMT -11:00) Midway Island, Samoa</option>
-                        <option value="-10.0">(GMT -10:00) Hawaii</option>
-                        <option value="-9.0">(GMT -9:00) Alaska</option>
-                    </select><input type="submit" value="Thêm" /><br><br>
-                    <input type="submit" value="Thêm tài sản đảm bảo">
+                <td>
+                    <% if (listTaiSanDaChon != null) {
+                            for (String ts : listTaiSanDaChon) {
+                                String tenTs = tsDAO.getTaiSanByID(ts).getTenTaiSan();%>
+                    <%=tenTs%><br><br>
+
+                    <%
+                            }
+                        }%>
+
+
+                    <form action="HopDongController" method="post">
+                        <select name="dropTaiSan"  class="input-xlarge">
+                            <% if (!listTaiSan.isEmpty())
+                                    for (TaiSan ts : listTaiSan) {%>
+                            <option value=<%=ts.getId()%>> <%=ts.getTenTaiSan()%> </option>
+                            <%}%>
+                        </select><input type="submit" value="Thêm" />   
+                        <input type="hidden" value="addTaiSan" name="btn" />  
+                    </form>
+
                 </td>
                 </tr>
                 </tbody>
             </table>
-            <input type="submit" value="Tạo hợp đồng" />
+            <form action="HopDongController" method="post" >
+                <input type="hidden" value="create" name="btn" />
+                <input type="submit" value="Tạo hợp đồng" />
+            </form>
 
         </div>
         <jsp:include page="base/footer.jsp"></jsp:include>

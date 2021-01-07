@@ -13,16 +13,20 @@ public class Xe {
     int id;
     String tenXe;
     String moTa;
+    String bienSO;
+    double donGia;
     String hangXe;
     String dongXe;
 
     public Xe() {
     }
 
-    public Xe(int id, String tenXe, String moTa, String hangXe, String dongXe) {
+    public Xe(int id, String tenXe, String moTa, String bienSO, double donGia, String hangXe, String dongXe) {
         this.id = id;
         this.tenXe = tenXe;
         this.moTa = moTa;
+        this.bienSO = bienSO;
+        this.donGia = donGia;
         this.hangXe = hangXe;
         this.dongXe = dongXe;
     }
@@ -51,6 +55,22 @@ public class Xe {
         this.moTa = moTa;
     }
 
+    public String getBienSO() {
+        return bienSO;
+    }
+
+    public void setBienSO(String bienSO) {
+        this.bienSO = bienSO;
+    }
+
+    public double getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(double donGia) {
+        this.donGia = donGia;
+    }
+
     public String getHangXe() {
         return hangXe;
     }
@@ -67,5 +87,6 @@ public class Xe {
         this.dongXe = dongXe;
     }
     
-    
+
+  
 }
